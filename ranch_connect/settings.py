@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-_jgfeehs(5@k7k2=jzmcpe5qzu7*jk#6l6&0tyhlvcm4w!c(_x
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['btrz92.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'FazendaAltoParaiso',
 ]
+
+TAILWIND_APP_NAME = 'tailwind_tags'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
