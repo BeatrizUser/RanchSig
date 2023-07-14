@@ -13,7 +13,9 @@ import sys
 from django.core.wsgi import get_wsgi_application
 
 # Adicione o diretório raiz do projeto ao sys.path
-sys.path.append('/home/btrz92/RanchSig')
+path = '/home/btrz92/RanchSig'
+if path not in sys.path:
+    sys.path.append(path)
 
 # Defina a variável de ambiente DJANGO_SETTINGS_MODULE
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ranch_connect.settings')
