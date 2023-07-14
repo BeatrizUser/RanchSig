@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'FazendaAltoParaiso',
+    'compressor',
 ]
 
 TAILWIND_APP_NAME = 'tailwind_tags'
@@ -45,7 +46,7 @@ ROOT_URLCONF = 'ranch_connect.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,5 +92,13 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+STATICFILES_FINDERS = [
+       'django.contrib.staticfiles.finders.FileSystemFinder',
+       'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+       'compressor.finders.CompressorFinder',
+   ]
+
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'compressed_files')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

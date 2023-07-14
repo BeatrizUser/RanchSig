@@ -1,14 +1,58 @@
 <!-- dashboard.html -->
+{% extends 'base.html' %}
+{% load compress %}
+{% load static %}
+
 {% block content %}
-    <h1>Dashboard</h1>
-    
-    {% for animal in animals %}
-        <div>
-            <h2>{{ animal.numero_identificacao }}</h2>
-            <!-- Display other information from the models -->
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Click me
-            </button>
+<!-- Estatísticas gerais -->
+    <div class="bg-white rounded-lg shadow-lg p-4 mb-8">
+        <h2 class="text-lg font-semibold mb-4">Estatísticas Gerais</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <h3 class="text-lg font-semibold mb-2">Total de Animais</h3>
+                <p class="text-4xl font-bold">{{ animals.count }}</p>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <h3 class="text-lg font-semibold mb-2">Animais por Raça</h3>
+                <ul>
+                    {% for raca in racas %}
+                        <li>{{ raca.raca }}: {{ raca.quantidade }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-    {% endfor %}
-{% endblock %}
+    </div>
+
+    <!-- Listagem de animais -->
+    <div class="bg-white rounded-lg shadow-lg p-4">
+        <h2 class="text-lg font-semibold mb-4">Lista de Animais</h2>
+        <table class="w-full">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Identificação</th>
+                    <th class="px-4 py-2">Data de Nascimento</th>
+                    <th class="px-4 py-2">Raça</th>
+                    <th class="px-4 py-2">Pedigree</th>
+                    <!-- Adicione mais colunas conforme necessário -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for animal in animals %}
+                    <tr>
+                        <td class="px-4 py-2">{{ animal.numero_identificacao }}</td>
+                        <td class="px-4 py-2">{{ animal.data_nascimento }}</td>
+                        <td class="px-4 py-2">{{ animal.raca }}</td>
+                        <td class="px-4 py-2">{{ animal.pedigree }}</td>
+                        <!-- Preencha as outras colunas com as informações relevantes -->
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">Nenhum animal encontrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% compress css %}
+<script src="https://cdn.tailwindcss.com"></script>
+{% endcompress %} {% endblock %}
