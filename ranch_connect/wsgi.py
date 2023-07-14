@@ -13,7 +13,7 @@ import sys
 from django.core.wsgi import get_wsgi_application
 
 # Adicione o diretório raiz do projeto ao sys.path
-path = '/home/btrz92/RanchSig'
+path = '/home/btrz92/RanchSig/ranch_connect'
 if path not in sys.path:
     sys.path.append(path)
 
