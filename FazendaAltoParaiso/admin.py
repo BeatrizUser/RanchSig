@@ -1,30 +1,45 @@
 from django.contrib import admin
+from django.contrib.admin import helpers
+from django.utils.translation import gettext as _
 from .models import Animal, Saude, Reproducao, Peso, Alimentacao, Movimentacao, Economia, Abate, Observacao
 
 class SaudeInline(admin.StackedInline):
     model = Saude
+    extra = 0
 
 class ReproducaoInline(admin.StackedInline):
     model = Reproducao
     fk_name = 'animal'
+    extra = 0
 
 class PesoInline(admin.StackedInline):
     model = Peso
+    extra = 0
 
 class AlimentacaoInline(admin.StackedInline):
     model = Alimentacao
+    extra = 0
 
 class MovimentacaoInline(admin.StackedInline):
     model = Movimentacao
+    extra = 0
 
 class EconomiaInline(admin.StackedInline):
     model = Economia
+    extra = 0
 
 class AbateInline(admin.StackedInline):
     model = Abate
+    extra = 0
 
 class ObservacaoInline(admin.StackedInline):
     model = Observacao
+    extra = 0
+
+class AnimalAddView(admin.ModelAdmin):
+    def add_view(self, request, form_url='', extra_context=None):
+        self.inlines = []
+        return super().add_view(request, form_url, extra_context)
 
 class AnimalAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -42,8 +57,10 @@ class AnimalAdmin(admin.ModelAdmin):
         ObservacaoInline,
     ]
 
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        self.inlines = []
-        return super().change_view(request, object_id, form_url, extra_context)
+    def get_add_view(self, request):
+        return AnimalAddView.as_view(
+            # Passar as mesmas variáveis de contexto do ModelAdmin original
+            extra_context=self.get_extra_context(request)
+        )(request)
 
 admin.site.register(Animal, AnimalAdmin)
