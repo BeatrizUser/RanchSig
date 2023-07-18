@@ -3,6 +3,13 @@ from django.contrib.admin import helpers
 from django.utils.translation import gettext as _
 from .models import Animal, Saude, Reproducao, Peso, Alimentacao, Movimentacao, Economia, Abate, Observacao
 
+class CustomAdminSite(admin.AdminSite):
+    site_title = 'Gestão Fazenda Alto Paraíso'
+    site_header = 'Administração Fazenda Alto Paraíso'
+    index_title = 'Administração Fazenda Alto Paraíso'
+
+admin.site = CustomAdminSite()
+
 class SaudeInline(admin.StackedInline):
     model = Saude
     extra = 0
